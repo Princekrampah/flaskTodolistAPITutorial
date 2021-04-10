@@ -1,0 +1,223 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Code With Prince",
+    "version": "1.0.0",
+    "title": "Code With Prince Flask API Tutorial",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "Products API",
+      "description": "Test API"
+    }
+  ],
+   "servers": [
+        {
+        "url": "/"
+        }
+    ],
+       "components": {
+        "schemas": {
+            "TodoList": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                    "type": "string"
+                    },
+                    "description": {
+                    "type": "string"
+                    }
+                }
+            },
+            "Id":{
+            "type" : "integer",
+            "properties" : {
+                "name" : {
+                    "type" : "integer"
+                }
+            }
+        },
+            "update":{
+              "type": "object",
+              "properties" :{
+                "name": {
+                    "type": "string"
+                    },
+                  "description": {
+                    "type": "string"
+                  },
+                  "completed": {
+                    "type": "boolean"
+                  }
+              }
+            }
+        }
+    },
+     "paths": {
+        "/todolist": {
+            "post": {
+            "tags": [
+                "Add todo to API"
+            ],
+            "summary": "Add todo",
+            "requestBody": {
+            "description": "Post New todo To Database",
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                }
+            }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                },
+                "404": {
+                    "description": "NOT FOUND",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+            }
+            }
+            },
+            "get" :{
+                "tags": [
+                    "Get All todos from API"
+                ],
+                "summary": "Get All todos",
+               
+                "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                },
+                "404": {
+                    "description": "NOT FOUND",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+            }
+            }
+            }
+        },
+        "/todolist/{id}":{
+
+            "get" :{
+                "tags": [
+                    "Get todos from API"
+                ],
+                "summary": "Get todos",
+                "parameters": [{
+                  "name": "id",
+                  "in": "path",
+                  "description": "todo id to update",
+                  "required": true,
+                  "type": "integer",
+                  "schema" : {
+                      "$ref": "#/components/schemas/Id"
+                  }
+                }],
+               
+                "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                },
+                "404": {
+                    "description": "NOT FOUND",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+            }
+            }
+            },
+           
+            "put": {
+            "tags": [
+                "Update todos on API"
+            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "description": "todo id to update",
+                "required": true,
+                "type": "integer",
+                "schema" : {
+                    "$ref": "#/components/schemas/Id"
+                }
+            }],
+            "summary": "Update Todo",
+            "requestBody": {
+            "description": "Update Existing todo On Database",
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/update"
+                    }
+                }
+            }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                },
+                "404": {
+                    "description": "NOT FOUND",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+            }
+            }
+        },
+        "delete": {
+            "tags": [
+                "Delete todo to API"
+            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "description": "product id to delete",
+                "required": true,
+                "type": "integer",
+                "schema" : {
+                    "$ref": "#/components/schemas/Id"
+                }
+            }],
+            "summary": "Delete todo",
+            
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+                },
+                "404": {
+                    "description": "NOT FOUND",
+                    "schema": {
+                    "$ref": "#/components/schemas/TodoList"
+                    }
+            }
+            }
+        }
+        }
+}
+}
